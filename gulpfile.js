@@ -38,7 +38,10 @@ const config = {
   server: {
     baseDir: "app"
   },
-  tunnel: false,
+  notify: false,
+  //open: false,
+  //online: false, // work offline without internet connection
+  //tunnel: false, tunnel: "projectName",  demonstration http://projectname.localtunnel.me
   // startPath: 'index.html',
   host: 'localhost',
   port: 9000,
@@ -59,27 +62,22 @@ const onError = function(err) {
 gulp.task('html', () =>
   gulp.src('app/*.html')
     .pipe(plumber({ errorHandler: onError }))
-    .pipe(includeFiles())
+    //.pipe(includeFiles())
     //.pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
     /*.pipe(htmlmin({
      collapseWhitespace: true,
      removeComments: false
      }))*/
-    .pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))
+    //.pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))
     .pipe(gulp.dest('dist/'))
     .on('end', browserSync.reload)
 );
-
-gulp.task('code', function() {
-  return gulp.src('app/*.html')
-    .pipe(browserSync.reload({ stream: true }))
-});
 
 
 
 // Deploy css via sass preprocessor
 gulp.task('sass', () =>
-  gulp.src('app/sass/**/*.sass')
+  gulp.src('app/sass/**/*.scss')
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}))
@@ -89,7 +87,7 @@ gulp.task('sass', () =>
     //.pipe(rename({suffix: '.min'}))
     //.pipe(cleanCSS({level: 2}))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -125,10 +123,11 @@ gulp.task('images', () =>
 );
 
 // reload after change via browserSync
-gulp.task('serve', () =>
+gulp.task('browserSync', () =>
     browserSync(config)
 );
 
+// delete build dir
 // delete build dir
 gulp.task('clean', (cb) =>
   rimraf('dist', cb)
@@ -139,27 +138,33 @@ gulp.task('clearCache', () =>
   cache.clearAll()
 );
 
-gulp.task('watch', function() {
-  //gulp.watch(path.watch.html, gulp.series('html'));
+// Build Production Site
+gulp.task('buildDist', () => {
+  const buildCss = gulp.src('app/css/**/*.css')
+    .pipe(gulp.dest('dist/css'));
+
+  /*const buildJs = gulp.src('app/js/!**!/!*.js')
+    .pipe(gulp.dest('dist/js'));
+
+  const buildData = gulp.src('app/data/!**!/!*')
+    .pipe(gulp.dest('dist/data'));
+
+  const buildImages = gulp.src('app/images/!**!/!*')
+    .pipe(gulp.dest('dist/images'));*/
+
+});
+
+gulp.task('watch', () => {
+  // STYLES, SCRIPTS, HTML, IMAGES, FONTS
   gulp.watch('app/sass/**/*.scss', gulp.parallel('sass'));
-  gulp.watch('app/*.html', gulp.parallel('code'));
-  //gulp.watch(path.watch.img, gulp.series('images'));
-  //gulp.watch(path.watch.fonts, gulp.series('fonts'));
+  gulp.watch('app/*.html', gulp.parallel('html'));
 });
 
 /*-- MANUALLY RUN TASK --*/
-// ['deploy', 'sftp', 'validation', 'cssLint', 'clearCache', 'check-for-favicon-update']
+// ['clean', 'validation', 'cssLint', 'clearCache', 'check-for-favicon-update']
 
-//gulp.task('build', gulp.series(['clean', gulp.parallel('sass')]));
-
-gulp.task('default', gulp.parallel('sass', 'serve', 'watch'));
-
-//gulp.task('default', gulp.series(['clean','sass', gulp.parallel('watch', 'serve')]));
-
-//gulp.task('build', gulp.parallel('clean', 'sass'));
 
 // Build Production Site with all updates
-gulp.task('build', gulp.series('clean', 'sass'));
+gulp.task('build', gulp.series(['clean', gulp.parallel('html', 'sass', 'buildDist')]));
 
-// Watch for all file changes during work
-gulp.task('default', gulp.series(['clean','sass', gulp.parallel('watch', 'serve')]));
+gulp.task('default', gulp.series(['build', gulp.parallel('watch', 'browserSync')]));
