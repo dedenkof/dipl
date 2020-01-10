@@ -13,3 +13,9 @@
 #### JS
 - Валидная, адаптивная, кроссбраузерная верстка.
 - Использование React или Angular.
+
+#### Steps
+
+npm init
+npm install gulp gulp-sass browser-sync rimraf gulp-sourcemaps gulp-concat gulp-autoprefixer gulp-plumber gulp-notify gulp-group-css-media-queries gulp-clean-css gulp-cache gulp-uglify gulp-group-css-media-queries gulp-conc
+at gulp-replace gulp-htmlmin gulp-rename gulp-real-favicon fs gulp-rigger imagemin-gifsicle imagemin-jpegtran imagemin-optipng -D
