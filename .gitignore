@@ -1,4 +1,8 @@
 # Numerous always-ignore extensions
+.CVS
+.git
+.hg
+.svn
 *.bak
 *.diff
 *.err
@@ -13,27 +17,23 @@
 *~
 
 # OS or Editor folders
-*.sublime-grunt.cache
-*.sublime-project
-*.sublime-workspace
-._*
-.cache
 .DS_Store
 .project
 .settings
 .tmproj
+npm-debug.log
 Thumbs.db
+.idea
+.cache
+*.sublime-grunt.cache
+*.sublime-project
+*.sublime-workspace
+._*
+
 
 # Folders to ignore
-.CVS
-.git
-.hg
-.idea
-.svn
-bower_components
-dist
-build
+bower_components/
+dist/
+build/
+node_modules/
 
-# Node.JS
-node_modules
-npm-debug.log
