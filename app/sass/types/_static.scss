@@ -82,7 +82,7 @@ html {
 }
 
 .text-block__left {
-	@include grid-span(2, 2);
+	@include grid-span(6, 1); // Поменять на grid
 
 	@include tablets {
 		width: 100%;
@@ -97,7 +97,7 @@ html {
 
 .text-block__right {
 	font-size: rem(15px);
-	@include grid-span(6, 7);
+	@include grid-span(6, 7); // Поменять на grid
 
 	@include tablets {
 		width: 100%;
@@ -112,7 +112,7 @@ html {
 	margin: 0;
 	list-style: none;
 	@include add-grid(12);
-	@include background-grid($color: purple);
+	@include background-grid($color: #ccc);
 }
 
 .gallery__item {
