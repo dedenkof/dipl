@@ -111,7 +111,7 @@ html {
 	padding: 0;
 	margin: 0;
 	list-style: none;
-	@include add-grid(21);
+	@include add-grid(12);
 	@include background-grid($color: purple);
 }
 
@@ -129,8 +129,6 @@ html {
 }
 
 .gallery__item--inner {
-	//padding: 0 rem(10px);
-
 	img {
 		display: block;
 		max-width: 100%;

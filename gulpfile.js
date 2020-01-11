@@ -1,24 +1,27 @@
 'use strict';
 
 const gulp = require('gulp'),
-  sass = require('gulp-sass'),
-  browserSync = require('browser-sync'),
-  autoprefixer = require('gulp-autoprefixer'),
-  rimraf = require('rimraf'),
-  sourcemaps = require('gulp-sourcemaps'),
-  concat = require('gulp-concat'),
-  plumber = require('gulp-plumber'),
-  notify = require('gulp-notify'),
-  gcmq = require('gulp-group-css-media-queries'),
-  cleanCSS = require('gulp-clean-css'),
-  cache = require('gulp-cache'),
-  minJS = require('gulp-uglify'),
+  sass = require('gulp-sass'), // compile SASS (SCSS) into CSS
+  browserSync = require('browser-sync'), // livereload
+  autoprefixer = require('gulp-autoprefixer'), // automating install vendor prefixes
+  rimraf = require('rimraf'), // delete files and directories
+  sourcemaps = require('gulp-sourcemaps'), // generation map output files
+  concat = require('gulp-concat'), // concating many files into one
+  plumber = require('gulp-plumber'), // track error
+  notify = require('gulp-notify'), // notify message
+  gcmq = require('gulp-group-css-media-queries'), // group media queries into one group
+  cleanCSS = require('gulp-clean-css'), // minify CSS
+  cache = require('gulp-cache'), // cached
+  minJS = require('gulp-uglify'), // minify JS
   replace = require('gulp-replace'),
-  htmlmin = require('gulp-htmlmin'),
+  htmlmin = require('gulp-htmlmin'), // minify HTML
   rename = require('gulp-rename'),
-  realFavicon = require ('gulp-real-favicon'),
+  realFavicon = require ('gulp-real-favicon'), // generation favicon pack
   fs = require('fs'),
-  includeFiles = require('gulp-rigger');
+  includeFiles = require('gulp-rigger'), // import content one file into other file
+  gifsicle = require('imagemin-gifsicle'), // compress gif
+  jpegtran = require('imagemin-jpegtran'), // compress jpeg
+  optipng = require('imagemin-optipng'); // compress png
 
 
 // Config autoprefixer add prefix to the browsers

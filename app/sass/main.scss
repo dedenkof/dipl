@@ -28,7 +28,7 @@ $grey: #727272;
 @import "../../node_modules/singularitygs/stylesheets/singularitygs";
 
 /* --------- types --------- */
-//@import "./types/static";
+@import "./types/static";
 //@import "./types/rubber";
-@import "./types/adaptive";
+//@import "./types/adaptive";
 //@import "./types/responsive";
