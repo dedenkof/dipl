@@ -139,9 +139,9 @@ gulp.task('clearCache', () =>
 );
 
 // Build Production Site
-gulp.task('buildDist', () => {
-  const buildCss = gulp.src('app/css/**/*.css')
-    .pipe(gulp.dest('dist/css'));
+gulp.task('buildDist', () =>
+  gulp.src('app/css/**/*.css')
+    .pipe(gulp.dest('dist/css'))
 
   /*const buildJs = gulp.src('app/js/!**!/!*.js')
     .pipe(gulp.dest('dist/js'));
@@ -151,13 +151,13 @@ gulp.task('buildDist', () => {
 
   const buildImages = gulp.src('app/images/!**!/!*')
     .pipe(gulp.dest('dist/images'));*/
-
-});
+);
 
 gulp.task('watch', () => {
   // STYLES, SCRIPTS, HTML, IMAGES, FONTS
   gulp.watch('app/sass/**/*.scss', gulp.parallel('sass'));
   gulp.watch('app/*.html', gulp.parallel('html'));
+
 });
 
 /*-- MANUALLY RUN TASK --*/

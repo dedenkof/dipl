@@ -11,24 +11,24 @@ $black: #414141;
 $grey: #727272;
 
 // layout
-@import "_misc/fonts";
-@import "_misc/mixins";
-@import "_misc/adjustment";
-@import "_misc/normalize";
-@import "_misc/font-awesome";
+@import "./misc/fonts";
+@import "./misc/mixins";
+@import "./misc/adjustment";
+@import "./misc/normalize";
+@import "./misc/font-awesome";
 
 // styles
-@import "sections/header";
-@import "sections/footer";
-@import "sections/auth";
+@import "./sections/header";
+@import "./sections/footer";
+@import "./sections/auth";
 
 //media
-@import "adaptive/media";
+@import "./adaptive/media";
 
 @import "../../node_modules/singularitygs/stylesheets/singularitygs";
 
 /* --------- types --------- */
-//@import "types/static";
-//@import "types/rubber";
-@import "types/adaptive";
-//@import "types/responsive";
+//@import "./types/static";
+//@import "./types/rubber";
+@import "./types/adaptive";
+//@import "./types/responsive";
