@@ -26,6 +26,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-group-css-media-queries": "^1.2.2",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^6.2.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.1",
     "gulp-real-favicon": "^0.3.2",
@@ -38,8 +39,8 @@
     "imagemin-gifsicle": "^6.0.1",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-optipng": "^7.1.0",
+    "imagemin-pngquant": "^8.0.0",
     "rimraf": "^3.0.0",
     "singularitygs": "^1.8.0"
-  },
-
+  }
 }

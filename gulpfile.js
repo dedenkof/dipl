@@ -19,6 +19,8 @@ const gulp = require('gulp'),
   realFavicon = require ('gulp-real-favicon'), // generation favicon pack
   fs = require('fs'),
   includeFiles = require('gulp-rigger'), // import content one file into other file
+  imagemin = require('gulp-imagemin'),
+  pngquant = require('imagemin-pngquant'),
   gifsicle = require('imagemin-gifsicle'), // compress gif
   jpegtran = require('imagemin-jpegtran'), // compress jpeg
   optipng = require('imagemin-optipng'); // compress png
@@ -99,11 +101,7 @@ gulp.task('sass', () =>
 
 // Copy all generated img files into build directory
 gulp.task('images', () =>
-  gulp.src([
-    path.src.img,
-    `!${path.src.src}img/uploads/*-pack/**/*.*`  // exclude source for mask *-pack/**/*.*
-  ])
-    .pipe(gulp.dest(path.build.img))
+  gulp.src('app/img/**/*.{png,xml,jpg,gif,svg,ico,webmanifest}')
     .pipe(cache(imagemin([
         imagemin.gifsicle({interlaced: true}),
         imagemin.jpegtran({progressive: true}),
@@ -118,8 +116,7 @@ gulp.task('images', () =>
         verbose: true // output status treatment img files
       }
     )))
-
-    .pipe(gulp.dest(path.build.img))
+    .pipe(gulp.dest('dist/img/'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -142,9 +139,10 @@ gulp.task('clearCache', () =>
 );
 
 // Build Production Site
-gulp.task('buildDist', () =>
-  gulp.src('app/css/**/*.css')
-    .pipe(gulp.dest('dist/css'))
+gulp.task('buildDist', (done) => {
+  const buildcss = gulp.src(['app/css/**/*.css'])
+    .pipe(gulp.dest('dist/css'));
+
 
   /*const buildJs = gulp.src('app/js/!**!/!*.js')
     .pipe(gulp.dest('dist/js'));
@@ -154,12 +152,17 @@ gulp.task('buildDist', () =>
 
   const buildImages = gulp.src('app/images/!**!/!*')
     .pipe(gulp.dest('dist/images'));*/
-);
+
+  const buildImages = gulp.src('src/img/**/*.*')
+    .pipe(gulp.dest('dist/img'));
+  done();
+});
 
 gulp.task('watch', () => {
   // STYLES, SCRIPTS, HTML, IMAGES, FONTS
   gulp.watch('app/sass/**/*.scss', gulp.parallel('sass'));
   gulp.watch('app/*.html', gulp.parallel('html'));
+  gulp.watch('src/img/**/*.*', gulp.series('images'));
 
 });
 
@@ -168,6 +171,6 @@ gulp.task('watch', () => {
 
 
 // Build Production Site with all updates
-gulp.task('build', gulp.series(['clean', gulp.parallel('html', 'sass', 'buildDist')]));
+gulp.task('build', gulp.series(['clean', gulp.parallel('html', 'sass', 'images', 'buildDist')]));
 
 gulp.task('default', gulp.series(['build', gulp.parallel('watch', 'browserSync')]));
